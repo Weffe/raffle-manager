@@ -1,0 +1,37 @@
+{
+  "name": "raffle-manager",
+  "version": "0.0.1",
+  "description": "A raffle management system that includes a user system and leaderboard.",
+  "main": "index.js",
+  "dependencies": {
+    "next": "^4.2.3",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-table": "^6.7.6",
+    "reactstrap": "^4.8.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Weffe/raffle-manager.git"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "raffle",
+    "manager",
+    "bootstrap4"
+  ],
+  "author": "Rogelio Negrete",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Weffe/raffle-manager/issues"
+  },
+  "homepage": "https://github.com/Weffe/raffle-manager#readme"
+}
