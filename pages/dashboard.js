@@ -1,3 +1,8 @@
+import Link from 'next/link'
+import Layout from '../containers/Layout'
+
 export default () => (
-  <p>This is the dashboard</p>
+  <Layout pageTitle="Dashboard">
+    Dashboard Section!
+  </Layout>
 )

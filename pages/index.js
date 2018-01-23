@@ -1,13 +1,8 @@
 import Link from 'next/link'
+import Layout from '../containers/Layout'
 
 export default () => (
-  <div>
-    <nav>
-      <Link href="/dashboard">
-        <a>dashboard</a>
-      </Link>
-
-    </nav>
+  <Layout pageTitle="Home">
     Hello world, this is the index!
-  </div>
+  </Layout>
 )
