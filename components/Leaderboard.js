@@ -40,6 +40,7 @@ class Leaderboard extends Component {
         data={data}
         columns={columnsConfig}
         defaultPageSize={10}
+        className="-striped -highlight"
       />
     )
   }
