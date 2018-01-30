@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Jumbotron } from 'reactstrap'
+import { Container, Row, Col, Jumbotron, Alert } from 'reactstrap'
 import Layout from '../containers/Layout'
 import DashboardAccessorForm from '../components/forms/DashboardAccessorForm'
 import DashboardManager from '../components/DashboardManager'
@@ -50,7 +50,9 @@ class Dashboard extends Component {
       return (
         <Layout pageTitle="Dashboard" >
           <Container>
-            <p>You do not have access to this. Please login.</p>
+            <Alert color="danger">
+              You do not have access to this page. Please login to gain access.
+            </Alert>
           </Container>
         </Layout >
       )
