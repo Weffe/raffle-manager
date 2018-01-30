@@ -3,8 +3,12 @@ import { Container, Row, Col, Jumbotron } from 'reactstrap'
 import Layout from '../containers/Layout'
 import Leaderboard from '../components/Leaderboard'
 import RaffleEntryForm from '../components/forms/RaffleEntryForm'
+import { initStore } from '../store'
+import withRedux from 'next-redux-wrapper'
 
-const loggedin = true
+const mapStateToProps = (state) => ({
+  loggedin: state.loggedin,
+})
 
 class Home extends Component {
   constructor() {
@@ -15,6 +19,7 @@ class Home extends Component {
   }
 
   renderJumbotron() {
+    const { loggedin } = this.props
     if (loggedin) {
       return (
         <Row>
@@ -32,6 +37,7 @@ class Home extends Component {
   }
 
   renderHomeBody() {
+    const { loggedin } = this.props
     return (
       <Row>
         {loggedin && (
@@ -58,5 +64,4 @@ class Home extends Component {
     )
   }
 }
-
-export default Home
+export default withRedux(initStore, mapStateToProps, null)(Home)

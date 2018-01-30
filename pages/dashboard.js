@@ -3,6 +3,12 @@ import { Container, Row, Col, Jumbotron } from 'reactstrap'
 import Layout from '../containers/Layout'
 import DashboardAccessorForm from '../components/forms/DashboardAccessorForm'
 import DashboardManager from '../components/DashboardManager'
+import { initStore } from '../store'
+import withRedux from 'next-redux-wrapper'
+
+const mapStateToProps = (state) => ({
+  loggedin: state.loggedin,
+})
 
 class Dashboard extends Component {
   constructor() {
@@ -40,6 +46,16 @@ class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.loggedin) {
+      return (
+        <Layout pageTitle="Dashboard" >
+          <Container>
+            <p>You do not have access to this. Please login.</p>
+          </Container>
+        </Layout >
+      )
+    }
+
     return (
       <Layout pageTitle="Dashboard" >
         <Container>
@@ -51,4 +67,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
+export default withRedux(initStore, mapStateToProps, null)(Dashboard)

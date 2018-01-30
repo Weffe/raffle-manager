@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } from 'reactstrap';
 import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
+import Link from 'next/link'
 
 class RaffleEntryForm extends Component {
   constructor() {
@@ -25,7 +26,7 @@ class RaffleEntryForm extends Component {
             </span>
 
             <UncontrolledTooltip placement="right" target="UsernameTip">
-              Tip: It might make it easier to remember your username if you use your CWID.
+              Tip: It might be easier to remember your username if you use your CWID.
             </UncontrolledTooltip >
 
           </Label>
@@ -38,7 +39,9 @@ class RaffleEntryForm extends Component {
 
         <Button color="primary" onClick={this.handleSubmit}>Get Raffle Ticket</Button>
         <hr />
-        <Button color="faded" onClick={this.handleSubmit}>Forgot my account</Button>
+        <Link href="/forgotaccount" prefetch>
+          <Button color="faded">Forgot my account</Button>
+        </Link>
       </Form>
     )
   }

@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } from 'reactstrap'
+import Router from 'next/router'
+import { bindActionCreators } from 'redux'
+import { login } from '../../store'
+import { connect } from 'react-redux'
+
+const mapDispatchToProps = dispatch => ({
+  handleLogin: bindActionCreators(login, dispatch)
+})
 
 class AppLoginForm extends Component {
   constructor() {
@@ -10,6 +18,8 @@ class AppLoginForm extends Component {
 
   _handleSubmit() {
     // handle authenticating user info
+    this.props.handleLogin()
+    Router.push('/')
   }
 
   render() {
@@ -38,4 +48,4 @@ const AppLoginFormWrapper = (props) => (
   </div>
 )
 
-export default AppLoginFormWrapper
+export default connect(null, mapDispatchToProps)(AppLoginFormWrapper)

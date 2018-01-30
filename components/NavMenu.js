@@ -9,8 +9,11 @@ import {
     NavItem,
     NavLink,
 } from 'reactstrap'
+import { connect } from 'react-redux'
 
-const loggedin = true
+const mapStateToProps = (state) => ({
+    loggedin: state.loggedin,
+})
 
 class NavMenu extends Component {
     constructor(props) {
@@ -21,7 +24,6 @@ class NavMenu extends Component {
         };
 
         this.toggle = this.toggle.bind(this);
-        this.renderForgotAccountLink = this.renderForgotAccountLink.bind(this)
         this.renderLoginLink = this.renderLoginLink.bind(this)
         this.renderDashboardLink = this.renderDashboardLink.bind(this)
     }
@@ -32,19 +34,9 @@ class NavMenu extends Component {
         }))
     }
 
-    renderForgotAccountLink() {
-        if (loggedin) {
-            return (
-                <NavItem>
-                    <Link href="/forgotaccount" prefetch>
-                        <NavLink href="#">Forgot Account</NavLink>
-                    </Link>
-                </NavItem>
-            )
-        }
-    }
-
     renderDashboardLink() {
+        const { loggedin } = this.props
+
         if (loggedin) {
             return (
                 <NavItem>
@@ -57,11 +49,13 @@ class NavMenu extends Component {
     }
 
     renderLoginLink() {
+        const { loggedin } = this.props
+
         if (!loggedin) {
             return (
                 <NavItem>
                     <Link href="/login" prefetch>
-                        <NavLink href="#">Login</NavLink>
+                        <NavLink href="#">Admin Login</NavLink>
                     </Link>
                 </NavItem>
             )
@@ -70,8 +64,8 @@ class NavMenu extends Component {
 
     render() {
         return (
-            <Navbar light color="white">
-                <NavbarBrand >Raffle Manager</NavbarBrand>
+            <Navbar light color="white" expand="md">
+                <NavbarBrand>Raffle Manager</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
@@ -80,7 +74,11 @@ class NavMenu extends Component {
                                 <NavLink href="#">Home</NavLink>
                             </Link>
                         </NavItem>
-                        {this.renderForgotAccountLink()}
+                        <NavItem>
+                            <Link href="/forgotaccount" prefetch>
+                                <NavLink href="#">Forgot Account</NavLink>
+                            </Link>
+                        </NavItem>
                         {this.renderDashboardLink()}
                         {this.renderLoginLink()}
                     </Nav>
@@ -89,5 +87,4 @@ class NavMenu extends Component {
         )
     }
 }
-
-export default NavMenu
+export default connect(mapStateToProps, null)(NavMenu)
