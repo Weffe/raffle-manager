@@ -1,0 +1,19 @@
+{
+    "users": {
+        "<uuid>": {
+            "_id": "<uuid>",
+            "firstName": "<string>",
+            "lastName": "<string>",
+            "username": "<string>",
+            "password": "<string>"
+        }
+    },
+    "tickets": {
+        "_id": {
+            "firstName": "<string>",
+            "lastName": "<string>",
+            "ticketCount": "<number>",
+            "lastUpdated": "<timestamp>"
+        }
+    }
+}

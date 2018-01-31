@@ -1,39 +1,61 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip, InputGroupAddon, InputGroup } from 'reactstrap'
 import Router from 'next/router'
 import { bindActionCreators } from 'redux'
 import { login } from '../../store'
 import { connect } from 'react-redux'
+import { validateAppLogin } from '../../utils/utils'
 
 const mapDispatchToProps = dispatch => ({
-  handleLogin: bindActionCreators(login, dispatch)
+  handleAppLogin: bindActionCreators(login, dispatch)
 })
 
 class AppLoginForm extends Component {
   constructor() {
     super()
 
-    this._handleSubmit = this._handleSubmit.bind(this)
+    this.state = { username: '', password: '' }
+    this.handleInputChange = this.handleInputChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  _handleSubmit() {
+  handleInputChange({ target }) {
+    this.setState({ [target.name]: target.value })
+  }
+
+  async handleSubmit() {
+    const { username, password } = this.state
+    console.log(username, password)
+
     // handle authenticating user info
-    this.props.handleLogin()
-    Router.push('/')
+    const validLogin = await validateAppLogin(username, password)
+    if (validLogin) {
+      this.props.handleAppLogin()
+      Router.push('/')
+    }
+    else {
+      console.error('Error logging into app.')
+    }
   }
 
   render() {
+    const { username, password } = this.state
+
     return (
       <Form>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
-          <Input type="text" name="username" id="usernameEntry" placeholder="Username" />
+          <InputGroup>
+            <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
+            <InputGroupAddon addonType="append"><Button color="secondary" type="button">Show/Hide Username</Button></InputGroupAddon>
+          </InputGroup>
+
         </FormGroup>
         <FormGroup>
           <Label for="passwordEntry">Password</Label>
-          <Input type="password" name="password" id="passwordEntry" placeholder="Password" />
+          <Input type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
         </FormGroup>
-        <Button color="primary" onClick={this._handleSubmit}>Submit</Button>
+        <Button color="primary" onClick={this.handleSubmit}>Submit</Button>
       </Form>
     )
   }
