@@ -41,7 +41,7 @@ class DashboardAccessorForm extends Component {
 }
 
 const DashboardAccessorFormWrapper = (props) => (
-  <div className="rounded border border-primary p-3">
+  <div className="rounded border p-3">
     <h2>Dashboard Accessor</h2>
     <span className="text-muted">Enter your information to access the dashboard.</span>
     <hr />

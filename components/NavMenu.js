@@ -25,7 +25,7 @@ class NavMenu extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.renderLoginLink = this.renderLoginLink.bind(this)
-        this.renderDashboardLink = this.renderDashboardLink.bind(this)
+        this.renderLinkIfLoggedIn = this.renderLinkIfLoggedIn.bind(this)
     }
 
     toggle() {
@@ -34,14 +34,14 @@ class NavMenu extends Component {
         }))
     }
 
-    renderDashboardLink() {
+    renderLinkIfLoggedIn({ href, name }) {
         const { loggedin } = this.props
 
         if (loggedin) {
             return (
                 <NavItem>
-                    <Link href="/dashboard" prefetch>
-                        <NavLink href="#">Dashboard</NavLink>
+                    <Link href={`/${href}`} prefetch>
+                        <NavLink href="#">{name}</NavLink>
                     </Link>
                 </NavItem>
             )
@@ -74,12 +74,13 @@ class NavMenu extends Component {
                                 <NavLink href="#">Home</NavLink>
                             </Link>
                         </NavItem>
+                        {this.renderLinkIfLoggedIn({ name: 'Register', href: 'register' })}
                         <NavItem>
                             <Link href="/forgotaccount" prefetch>
                                 <NavLink href="#">Forgot Account</NavLink>
                             </Link>
                         </NavItem>
-                        {this.renderDashboardLink()}
+                        {this.renderLinkIfLoggedIn({ name: 'Dashboard', href: 'dashboard' })}
                         {this.renderLoginLink()}
                     </Nav>
                 </Collapse>

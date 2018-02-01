@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Row, Col, Jumbotron } from 'reactstrap'
+import { Container, Row, Col, Jumbotron, Button } from 'reactstrap'
 import Layout from '../containers/Layout'
 import Leaderboard from '../components/Leaderboard'
 import RaffleEntryForm from '../components/forms/RaffleEntryForm'
 import { initStore } from '../store'
 import withRedux from 'next-redux-wrapper'
+import Link from 'next/link'
 
 const mapStateToProps = (state) => ({
   loggedin: state.loggedin,
@@ -28,7 +29,12 @@ class Home extends Component {
               <h1 className="display-4">Welcome!</h1>
               <p className="lead">
                 If you don't already have a free account then register for one!
-            </p>
+              </p>
+              <Link href="/register">
+                <Button size="lg" color="success">
+                  Register Account
+                </Button>
+              </Link>
             </Jumbotron>
           </Col>
         </Row>

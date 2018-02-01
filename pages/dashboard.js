@@ -51,7 +51,7 @@ class Dashboard extends Component {
         <Layout pageTitle="Dashboard" >
           <Container>
             <Alert color="danger">
-              You do not have access to this page. Please login to gain access.
+              You do not have access to this page. Please login as an admin to gain access.
             </Alert>
           </Container>
         </Layout >

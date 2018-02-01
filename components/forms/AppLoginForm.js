@@ -14,9 +14,10 @@ class AppLoginForm extends Component {
   constructor() {
     super()
 
-    this.state = { username: '', password: '' }
+    this.state = { username: '', password: '', usernameFieldTypeText: false }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleUsernameFieldToggle = this.handleUsernameFieldToggle.bind(this)
   }
 
   handleInputChange({ target }) {
@@ -38,16 +39,26 @@ class AppLoginForm extends Component {
     }
   }
 
+  handleUsernameFieldToggle() {
+    this.setState(prevState => ({
+      usernameFieldTypeText: !prevState.usernameFieldTypeText
+    }))
+  }
+
   render() {
-    const { username, password } = this.state
+    const { username, password, usernameFieldTypeText } = this.state
 
     return (
       <Form>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
           <InputGroup>
-            <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
-            <InputGroupAddon addonType="append"><Button color="secondary" type="button">Show/Hide Username</Button></InputGroupAddon>
+            <Input type={usernameFieldTypeText ? "text" : "password"} name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
+            <InputGroupAddon addonType="append">
+              <Button color="secondary" type="button" onClick={this.handleUsernameFieldToggle}>
+                Show/Hide Username
+              </Button>
+            </InputGroupAddon>
           </InputGroup>
 
         </FormGroup>
@@ -62,7 +73,7 @@ class AppLoginForm extends Component {
 }
 
 const AppLoginFormWrapper = (props) => (
-  <div className="rounded border border-primary p-3">
+  <div className="rounded border p-3">
     <h2>App Login</h2>
     <span className="text-muted">Enter your information to show the full application.</span>
     <hr />

@@ -6,6 +6,6 @@ const firebaseConfig = {
     databaseURL: "https://raffle-manager.firebaseio.com",
 }
 
-const firebaseConn = firebase.initializeApp(config);
+const firebaseConn = !firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app();
 
 export const database = firebaseConn.database();
