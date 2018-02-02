@@ -16,7 +16,8 @@ class RaffleEntryForm extends Component {
     this.setState({ [target.name]: target.value })
   }
 
-  async handleSubmit() {
+  async handleSubmit(e) {
+    e.preventDefault()
     const { username, password } = this.state
 
     // handle authenticating user info and incrementing ticket
@@ -35,20 +36,9 @@ class RaffleEntryForm extends Component {
     const { username, password } = this.state
 
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup>
-          <Label for="usernameEntry">
-            Username
-
-            <span id="UsernameTip" className="pl-1">
-              <InfoOutlineIcon />
-            </span>
-
-            <UncontrolledTooltip placement="right" target="UsernameTip">
-              Tip: It might be easier to remember your username if you use your CWID
-            </UncontrolledTooltip >
-
-          </Label>
+          <Label for="usernameEntry">Username</Label>
           <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
         </FormGroup>
         <FormGroup>

@@ -37,3 +37,13 @@ export function handleRaffleEntry(username, password) {
     return validateRaffleEntry(username, password)
         .then(ticketID => incrementTicketCount(ticketID))
 }
+
+export function transformTicketsToList(tickets) {
+    const list = [];
+
+    Object.entries(tickets).forEach(([key, val]) => {
+        list.push(val)
+    });
+
+    return list
+}

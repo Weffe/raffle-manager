@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } from 'reactstrap';
 import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
 import Link from 'next/link'
+import Router from 'next/router'
 import { handleRaffleEntry } from '../../utils/utils'
-import { database } from '../../utils/firebase'
+import { database, createAccount, ticketsRef } from '../../utils/firebase'
 
 class CreateAccountForm extends Component {
     constructor() {
         super()
-        this.state = { username: '', password: '' }
+        this.state = { username: '', password: '', firstName: '', lastName: '' }
         this.handleInputChange = this.handleInputChange.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
     }
@@ -17,15 +18,12 @@ class CreateAccountForm extends Component {
         this.setState({ [target.name]: target.value })
     }
 
-    async handleSubmit() {
-        const { username, password } = this.state
-
-        // handle authenticating user info and incrementing ticket
+    async handleSubmit(e) {
+        e.preventDefault();
+        const { firstName, lastName, username, password } = this.state
         try {
-            await handleRaffleEntry(username, password)
-            console.log('incremented ticket')
-            // clear the input fields if it validates
-            this.setState({ username: '', password: '' })
+            await createAccount(firstName, lastName, username, password)
+            Router.push('/')
         }
         catch (err) {
             console.error(err)
@@ -33,35 +31,38 @@ class CreateAccountForm extends Component {
     }
 
     render() {
-        const { username, password } = this.state
+        const { username, password, firstName, lastName } = this.state
 
         return (
-            <Form>
+            <Form onSubmit={this.handleSubmit}>
+                <FormGroup>
+                    <Label for="firstNameEntry">First Name</Label>
+                    <Input required type="text" name="firstName" id="firstNameEntry" placeholder="First Name" value={firstName} onChange={this.handleInputChange} />
+                </FormGroup>
+                <FormGroup>
+                    <Label for="lastNameEntry">Last Name</Label>
+                    <Input required type="text" name="lastName" id="lastNameEntry" placeholder="Last Name" value={lastName} onChange={this.handleInputChange} />
+                </FormGroup>
                 <FormGroup>
                     <Label for="usernameEntry">
                         Username
 
-            <span id="UsernameTip" className="pl-1">
+                        <span id="UsernameTip" className="pl-1">
                             <InfoOutlineIcon />
                         </span>
 
                         <UncontrolledTooltip placement="right" target="UsernameTip">
                             Tip: It might be easier to remember your username if you use your CWID
-            </UncontrolledTooltip >
-
+                        </UncontrolledTooltip >
                     </Label>
-                    <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
+                    <Input required type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="passwordEntry">Password</Label>
-                    <Input type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
+                    <Input required type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
                 </FormGroup>
 
-                <Button color="primary" onClick={this.handleSubmit}>Get Raffle Ticket</Button>
-                <hr />
-                <Link href="/forgotaccount" prefetch>
-                    <Button color="faded">Forgot my account</Button>
-                </Link>
+                <Button type="submit" color="primary">Submit</Button>
             </Form>
         )
     }
@@ -70,7 +71,7 @@ class CreateAccountForm extends Component {
 const CreateAccountFormWrapper = () => (
     <div className="rounded border p-3">
         <h2>Account Creation</h2>
-        <span className="text-muted">Create a free account!</span>
+        <span className="text-muted">Create a free account and gain access to free prizes!</span>
         <hr />
         <CreateAccountForm />
     </div>

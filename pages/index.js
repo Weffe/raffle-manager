@@ -30,7 +30,7 @@ class Home extends Component {
               <p className="lead">
                 If you don't already have a free account then register for one!
               </p>
-              <Link href="/register">
+              <Link href="/register" prefetch>
                 <Button size="lg" color="success">
                   Register Account
                 </Button>
