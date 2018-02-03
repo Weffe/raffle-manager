@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
-import { ticketsRef } from '../utils/firebase'
+import { ticketsRef, usersRef } from '../utils/firebase'
 import { transformTicketsToList } from '../utils/utils'
 
 const columnsConfig = [

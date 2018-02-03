@@ -1,4 +1,15 @@
 import { setTimeout } from "timers";
+import axios from 'axios'
+
+export const firebaseFuncions = axios.create({
+    baseURL: 'https://us-central1-raffle-manager.cloudfunctions.net',
+    // baseURL: ' http://localhost:5000/raffle-manager/us-central1',
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+    },
+})
 
 export function validateAppLogin(username, password) {
     return new Promise((resolve, reject) => {
@@ -34,8 +45,7 @@ function incrementTicketCount(ticketID) {
 }
 
 export function handleRaffleEntry(username, password) {
-    return validateRaffleEntry(username, password)
-        .then(ticketID => incrementTicketCount(ticketID))
+    return firebaseFuncions.post('/handleRaffleEntry', { username, password })
 }
 
 export function transformTicketsToList(tickets) {

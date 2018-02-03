@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } from 'reactstrap';
 import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
 import Link from 'next/link'
-import { handleRaffleEntry } from '../../utils/utils'
+import { handleRaffleEntry, firebaseFuncions } from '../../utils/utils'
 
 class RaffleEntryForm extends Component {
   constructor() {
@@ -10,26 +10,44 @@ class RaffleEntryForm extends Component {
     this.state = { username: '', password: '' }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleMultiply = this.handleMultiply.bind(this)
   }
 
   handleInputChange({ target }) {
     this.setState({ [target.name]: target.value })
   }
 
-  async handleSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault()
     const { username, password } = this.state
 
+    // firebaseFuncions.post('/handleRaffleEntry', {
+    //   username: 'mana', password: 'mana'
+    // })
+    //   .then(res => {
+    //     this.setState({ username: '', password: '' })
+    //     console.log(res)
+    //   })
+    //   .catch(err => console.log(err))
+
     // handle authenticating user info and incrementing ticket
-    try {
-      await handleRaffleEntry(username, password)
-      console.log('incremented ticket')
-      // clear the input fields if it validates
-      this.setState({ username: '', password: '' })
-    }
-    catch (err) {
-      console.error(err)
-    }
+    handleRaffleEntry(username, password)
+      .then(res => {
+        console.log(res)
+        // clear the input fields if it validates
+        this.setState({ username: '', password: '' })
+      })
+      .catch(err => {
+        console.error(JSON.stringify(err))
+      })
+  }
+
+  handleMultiply() {
+    firebaseFuncions.post('/multiply', {
+      number: 5, multiplier: 4
+    })
+      .then(res => console.log(res.data.result))
+      .catch(err => console.log(err))
   }
 
   render() {
@@ -37,6 +55,7 @@ class RaffleEntryForm extends Component {
 
     return (
       <Form onSubmit={this.handleSubmit}>
+        <Button onClick={this.handleMultiply}>Multiply</Button>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
           <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
@@ -46,7 +65,7 @@ class RaffleEntryForm extends Component {
           <Input type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
         </FormGroup>
 
-        <Button color="primary" onClick={this.handleSubmit}>Get Raffle Ticket</Button>
+        <Button color="primary" onClick={this.handleSubmit} type="submit">Get Raffle Ticket</Button>
         <hr />
         <Link href="/forgotaccount" prefetch>
           <Button color="faded">Forgot my account</Button>
