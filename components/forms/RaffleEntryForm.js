@@ -7,7 +7,7 @@ import { handleRaffleEntry, firebaseFuncions } from '../../utils/utils'
 class RaffleEntryForm extends Component {
   constructor() {
     super()
-    this.state = { username: '', password: '' }
+    this.state = { username: '', password: '', formSubmitted: false }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleMultiply = this.handleMultiply.bind(this)
@@ -19,27 +19,22 @@ class RaffleEntryForm extends Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    const { username, password } = this.state
+    const { username, password, formSubmitted } = this.state
 
-    // firebaseFuncions.post('/handleRaffleEntry', {
-    //   username: 'mana', password: 'mana'
-    // })
-    //   .then(res => {
-    //     this.setState({ username: '', password: '' })
-    //     console.log(res)
-    //   })
-    //   .catch(err => console.log(err))
-
-    // handle authenticating user info and incrementing ticket
-    handleRaffleEntry(username, password)
-      .then(res => {
-        console.log(res)
-        // clear the input fields if it validates
-        this.setState({ username: '', password: '' })
-      })
-      .catch(err => {
-        console.error(JSON.stringify(err))
-      })
+    if (!formSubmitted) {
+      this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+      // handle authenticating user info and incrementing ticket
+      handleRaffleEntry(username, password)
+        .then(res => {
+          console.log(res)
+          // clear the input fields if it validates
+          this.setState({ username: '', password: '', formSubmitted: false })
+        })
+        .catch(err => {
+          this.setState({ formSubmitted: false })
+          console.error(JSON.stringify(err))
+        })
+    }
   }
 
   handleMultiply() {
@@ -51,11 +46,10 @@ class RaffleEntryForm extends Component {
   }
 
   render() {
-    const { username, password } = this.state
+    const { username, password, formSubmitted } = this.state
 
     return (
       <Form onSubmit={this.handleSubmit}>
-        <Button onClick={this.handleMultiply}>Multiply</Button>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
           <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
