@@ -11,8 +11,8 @@ const mapStateToProps = (state) => ({
 })
 
 class Dashboard extends Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = { dashboardVisible: false }
     this.handleOnSubmitDone = this.handleOnSubmitDone.bind(this)
     this.renderDashboardAccessorForm = this.renderDashboardAccessorForm.bind(this)

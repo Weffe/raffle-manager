@@ -3,7 +3,6 @@ import axios from 'axios'
 
 export const firebaseFuncions = axios.create({
     baseURL: 'https://us-central1-club-raffle-manager.cloudfunctions.net',
-    // baseURL: 'http://localhost:5000/club-raffle-manager/us-central1',
     headers: {
         'Access-Control-Allow-Origin': '*',
         'Accept': 'application/json',
