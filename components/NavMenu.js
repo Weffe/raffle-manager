@@ -40,7 +40,7 @@ class NavMenu extends Component {
         if (loggedin) {
             return (
                 <NavItem>
-                    <Link href={`/${href}`} prefetch>
+                    <Link href={`${href}`} prefetch>
                         <NavLink href="#">{name}</NavLink>
                     </Link>
                 </NavItem>
@@ -74,13 +74,9 @@ class NavMenu extends Component {
                                 <NavLink href="#">Home</NavLink>
                             </Link>
                         </NavItem>
-                        {this.renderLinkIfLoggedIn({ name: 'Register', href: 'register' })}
-                        <NavItem>
-                            <Link href="/forgotaccount" prefetch>
-                                <NavLink href="#">Forgot Account</NavLink>
-                            </Link>
-                        </NavItem>
-                        {this.renderLinkIfLoggedIn({ name: 'Dashboard', href: 'dashboard' })}
+                        {this.renderLinkIfLoggedIn({ name: 'Register', href: '/register' })}
+                        {this.renderLinkIfLoggedIn({ name: 'Forgot Account', href: '/forgotaccount' })}
+                        {this.renderLinkIfLoggedIn({ name: 'Dashboard', href: '/dashboard' })}
                         {this.renderLoginLink()}
                     </Nav>
                 </Collapse>

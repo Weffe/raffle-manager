@@ -11,10 +11,10 @@ class DashboardAccessorForm extends Component {
   constructor() {
     super()
 
-    this._handleSubmit = this._handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
-  _handleSubmit() {
+  handleSubmit() {
     // handle authenticating user info
     const validAdmin = true
 
@@ -24,17 +24,16 @@ class DashboardAccessorForm extends Component {
 
   render() {
     return (
-      <Form>
+      <Form onSubmit={this.handleSubmit}>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
-          <Input type="text" name="username" id="usernameEntry" placeholder="Username" />
+          <Input required type="text" name="username" id="usernameEntry" placeholder="Username" />
         </FormGroup>
         <FormGroup>
           <Label for="passwordEntry">Password</Label>
-          <Input type="password" name="password" id="passwordEntry" placeholder="Password" />
+          <Input required type="password" name="password" id="passwordEntry" placeholder="Password" />
         </FormGroup>
-
-        <Button color="primary" onClick={this._handleSubmit}>Submit</Button>
+        <Button color="primary">Submit</Button>
       </Form>
     )
   }
@@ -42,7 +41,7 @@ class DashboardAccessorForm extends Component {
 
 const DashboardAccessorFormWrapper = (props) => (
   <div className="rounded border p-3">
-    <h2>Dashboard Accessor</h2>
+    <h2>Dashboard</h2>
     <span className="text-muted">Enter your information to access the dashboard.</span>
     <hr />
     <DashboardAccessorForm {...props} />

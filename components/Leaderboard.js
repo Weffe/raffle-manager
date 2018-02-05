@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
-import { ticketsRef, usersRef } from '../utils/firebase'
+import { ticketsRef } from '../utils/firebase'
 import { transformTicketsToList } from '../utils/utils'
 
 const columnsConfig = [
@@ -14,8 +14,7 @@ const columnsConfig = [
   },
   {
     Header: 'Ticket Count',
-    id: 'ticketCount',
-    accessor: data => `${data.ticketCount} tickets`,
+    accessor: 'ticketCount',
   }
 ]
 
@@ -42,7 +41,6 @@ class Leaderboard extends Component {
 
     return (
       <ReactTable
-        loading={data.length > 0 ? false : true}
         data={data}
         columns={columnsConfig}
         defaultPageSize={10}

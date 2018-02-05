@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import NavMenu from '../components/NavMenu'
 import Head from 'next/head'
 import { string } from 'prop-types'
+import { ToastContainer, toast } from 'react-toastify';
 
 class Layout extends PureComponent {
     static propTypes = {
@@ -23,7 +24,7 @@ class Layout extends PureComponent {
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css" />
                 </Head>
                 <NavMenu />
-
+                <ToastContainer position={toast.POSITION.TOP_CENTER} pauseOnHover={false} />
                 {this.props.children}
             </React.Fragment>
         )

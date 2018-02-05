@@ -2,8 +2,8 @@ import { setTimeout } from "timers";
 import axios from 'axios'
 
 export const firebaseFuncions = axios.create({
-    baseURL: 'https://us-central1-raffle-manager.cloudfunctions.net',
-    // baseURL: ' http://localhost:5000/raffle-manager/us-central1',
+    baseURL: 'https://us-central1-club-raffle-manager.cloudfunctions.net',
+    // baseURL: 'http://localhost:5000/club-raffle-manager/us-central1',
     headers: {
         'Access-Control-Allow-Origin': '*',
         'Accept': 'application/json',
@@ -11,49 +11,34 @@ export const firebaseFuncions = axios.create({
     },
 })
 
-export function validateAppLogin(username, password) {
-    return new Promise((resolve, reject) => {
-        const validLogin = true;
+export function transformTicketsToList(tickets) {
+    const list = [];
 
+    if (tickets) {
+        Object.entries(tickets).forEach(([key, val]) => {
+            list.push(val)
+        });
+    }
 
-        // make the request to firebase for the app credentials
-        // check if credentials are equal
-        // ----
-        // look into using firebase functions to do this validation
-        // on the "backend" vs the react app
-        resolve(validLogin)
-
-        // reject('Incorrect credentials.')
-    })
+    return list
 }
 
-function validateRaffleEntry(username, password) {
-    return new Promise((resolve, reject) => {
-        // make the request to firebase for a user's credentials
-        // check if credentials are equal
-        // then resolve the ticket UUID: _id
-
-        resolve('SOME-TICEKT-ID')
-    })
-}
-
-function incrementTicketCount(ticketID) {
-    return new Promise((resolve, reject) => {
-        // update the ticketCount for the ticketID
-        resolve()
-    })
+export function handleAdminLogin(username, password) {
+    return firebaseFuncions.post('/handleAdminLogin', { username, password })
 }
 
 export function handleRaffleEntry(username, password) {
     return firebaseFuncions.post('/handleRaffleEntry', { username, password })
 }
 
-export function transformTicketsToList(tickets) {
-    const list = [];
+export function createAccount(firstName, lastName, username, password) {
+    return firebaseFuncions.post('/createAccount', { firstName, lastName, username, password })
+}
 
-    Object.entries(tickets).forEach(([key, val]) => {
-        list.push(val)
-    });
+export function resetPassword(firstName, lastName, username, password) {
+    return firebaseFuncions.post('/resetPassword', { firstName, lastName, username, password })
+}
 
-    return list
+export function resetUsername(firstName, lastName, username, password) {
+    return firebaseFuncions.post('/resetUsername', { firstName, lastName, username, password })
 }

@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } 
 import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
 import Link from 'next/link'
 import { handleRaffleEntry, firebaseFuncions } from '../../utils/utils'
+import { toast } from 'react-toastify';
 
 class RaffleEntryForm extends Component {
   constructor() {
@@ -10,7 +11,6 @@ class RaffleEntryForm extends Component {
     this.state = { username: '', password: '', formSubmitted: false }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleMultiply = this.handleMultiply.bind(this)
   }
 
   handleInputChange({ target }) {
@@ -26,23 +26,16 @@ class RaffleEntryForm extends Component {
       // handle authenticating user info and incrementing ticket
       handleRaffleEntry(username, password)
         .then(res => {
-          console.log(res)
+          const successMsg = res.data
+          toast.success(successMsg)
           // clear the input fields if it validates
           this.setState({ username: '', password: '', formSubmitted: false })
         })
         .catch(err => {
+          toast.error(err.response.data)
           this.setState({ formSubmitted: false })
-          console.error(JSON.stringify(err))
         })
     }
-  }
-
-  handleMultiply() {
-    firebaseFuncions.post('/multiply', {
-      number: 5, multiplier: 4
-    })
-      .then(res => console.log(res.data.result))
-      .catch(err => console.log(err))
   }
 
   render() {
@@ -52,17 +45,17 @@ class RaffleEntryForm extends Component {
       <Form onSubmit={this.handleSubmit}>
         <FormGroup>
           <Label for="usernameEntry">Username</Label>
-          <Input type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
+          <Input required type="text" name="username" id="usernameEntry" placeholder="Username" value={username} onChange={this.handleInputChange} />
         </FormGroup>
         <FormGroup>
           <Label for="passwordEntry">Password</Label>
-          <Input type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
+          <Input required type="password" name="password" id="passwordEntry" placeholder="Password" value={password} onChange={this.handleInputChange} />
         </FormGroup>
 
-        <Button color="primary" onClick={this.handleSubmit} type="submit">Get Raffle Ticket</Button>
+        <Button color="primary">Get Raffle Ticket</Button>
         <hr />
         <Link href="/forgotaccount" prefetch>
-          <Button color="faded">Forgot my account</Button>
+          <Button type="button" color="faded">Forgot my account</Button>
         </Link>
       </Form>
     )

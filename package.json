@@ -1,6 +1,6 @@
 {
   "name": "raffle-manager",
-  "version": "0.0.1",
+  "version": "0.0.9",
   "description": "A raffle management system that includes a user system and leaderboard.",
   "main": "index.js",
   "dependencies": {
@@ -14,6 +14,7 @@
     "react-icons": "^2.2.7",
     "react-redux": "^5.0.6",
     "react-table": "^6.7.6",
+    "react-toastify": "^3.3.1",
     "react-transition-group": "^2.2.1",
     "reactstrap": "^5.0.0-alpha.4",
     "redux": "^3.7.2",
@@ -27,9 +28,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "next",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
-    "deploy": "now --public"
+    "deploy": "npm run build && now --public ./out"
   },
   "repository": {
     "type": "git",

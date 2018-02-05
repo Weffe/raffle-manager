@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Container } from 'reactstrap';
 import Layout from '../containers/Layout'
-import AppLoginForm from '../components/forms/AppLoginForm'
+import AdminLoginForm from '../components/forms/AdminLoginForm'
 import { initStore } from '../store'
 import withRedux from 'next-redux-wrapper'
 
@@ -14,7 +14,7 @@ class Login extends Component {
     return (
       <Layout pageTitle="Login" >
         <Container>
-          <AppLoginForm />
+          <AdminLoginForm />
         </Container>
       </Layout >
     )

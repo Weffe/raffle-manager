@@ -3,15 +3,15 @@ import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } 
 import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
 import Link from 'next/link'
 import Router from 'next/router'
-import { handleRaffleEntry } from '../../utils/utils'
-import { database, createAccount, ticketsRef } from '../../utils/firebase'
+import { handleRaffleEntry, createAccount } from '../../utils/utils'
+import { toast } from 'react-toastify'
 
 class CreateAccountForm extends Component {
     constructor() {
         super()
-        this.state = { username: '', password: '', firstName: '', lastName: '' }
-        this.handleInputChange = this.handleInputChange.bind(this)
+        this.state = { username: '', password: '', firstName: '', lastName: '', formSubmitted: false }
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleInputChange = this.handleInputChange.bind(this)
     }
 
     handleInputChange({ target }) {
@@ -20,13 +20,21 @@ class CreateAccountForm extends Component {
 
     async handleSubmit(e) {
         e.preventDefault();
-        const { firstName, lastName, username, password } = this.state
-        try {
-            await createAccount(firstName, lastName, username, password)
-            Router.push('/')
-        }
-        catch (err) {
-            console.error(err)
+        const { firstName, lastName, username, password, formSubmitted } = this.state
+
+        if (!formSubmitted) {
+            this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+            createAccount(firstName, lastName, username, password)
+                .then(res => {
+                    this.setState({ firstName: '', lastName: '', username: '', password: '', formSubmitted: false })
+                    toast.success(`${res.data} You can close this notification to be redirected to the home page.`, {
+                        onClose: () => { Router.push('/') }
+                    })
+                })
+                .catch(err => {
+                    toast.error(err.response.data)
+                    this.setState({ formSubmitted: false })
+                })
         }
     }
 
