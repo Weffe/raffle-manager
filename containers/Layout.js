@@ -22,6 +22,7 @@ class Layout extends PureComponent {
                     <meta charSet='utf-8' />
                     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous" />
                     <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css" />
+                    <link rel="stylesheet" href="../static/customstyles.css" />
                 </Head>
                 <NavMenu />
                 <ToastContainer position={toast.POSITION.TOP_CENTER} pauseOnHover={false} />

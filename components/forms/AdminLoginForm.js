@@ -39,7 +39,7 @@ class AdminLoginForm extends Component {
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
 
-      handleAdminLogin(username, password)
+      handleAdminLogin(username.trim(), password)
         .then(res => {
           this.setState({ username: '', password: '', formSubmitted: false })
           this.props.dispatchAdminLogin()

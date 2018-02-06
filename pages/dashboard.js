@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Container, Row, Col, Jumbotron, Alert } from 'reactstrap'
 import Layout from '../containers/Layout'
 import DashboardAccessorForm from '../components/forms/DashboardAccessorForm'
-import DashboardManager from '../components/DashboardManager'
+import DashboardManager from '../containers/DashboardManager'
 import { initStore } from '../store'
 import withRedux from 'next-redux-wrapper'
 
@@ -14,13 +14,13 @@ class Dashboard extends Component {
   constructor(props) {
     super(props)
     this.state = { dashboardVisible: false }
-    this.handleOnSubmitDone = this.handleOnSubmitDone.bind(this)
+    this.handleOnSubmitComplete = this.handleOnSubmitComplete.bind(this)
     this.renderDashboardAccessorForm = this.renderDashboardAccessorForm.bind(this)
     this.renderDashboardManager = this.renderDashboardManager.bind(this)
   }
 
-  handleOnSubmitDone({ validAdmin }) {
-    if (validAdmin) {
+  handleOnSubmitComplete(isValidLogin) {
+    if (isValidLogin) {
       this.setState({ dashboardVisible: true })
     }
   }
@@ -30,7 +30,7 @@ class Dashboard extends Component {
 
     if (!dashboardVisible) {
       return (
-        <DashboardAccessorForm onSubmitDone={this.handleOnSubmitDone} />
+        <DashboardAccessorForm onSubmitComplete={this.handleOnSubmitComplete} />
       )
     }
   }

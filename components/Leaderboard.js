@@ -6,11 +6,13 @@ import { transformTicketsToList } from '../utils/utils'
 const columnsConfig = [
   {
     Header: 'First Name',
-    accessor: 'firstName'
+    accessor: 'firstName',
+    className: 'firstName'
   },
   {
     Header: 'Last Name',
-    accessor: 'lastName'
+    accessor: 'lastName',
+    className: 'lastName'
   },
   {
     Header: 'Ticket Count',

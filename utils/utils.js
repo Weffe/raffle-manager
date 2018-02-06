@@ -22,8 +22,16 @@ export function transformTicketsToList(tickets) {
     return list
 }
 
+export function getUsersForDashboard() {
+    return firebaseFuncions.get('/getUsersForDashboard')
+}
+
 export function handleAdminLogin(username, password) {
     return firebaseFuncions.post('/handleAdminLogin', { username, password })
+}
+
+export function handleDashboardLogin(username, password) {
+    return firebaseFuncions.post('/handleDashboardLogin', { username, password })
 }
 
 export function handleRaffleEntry(username, password) {

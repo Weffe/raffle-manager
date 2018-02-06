@@ -24,7 +24,7 @@ class CreateAccountForm extends Component {
 
         if (!formSubmitted) {
             this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
-            createAccount(firstName, lastName, username, password)
+            createAccount(firstName.trim(), lastName.trim(), username.trim(), password)
                 .then(res => {
                     this.setState({ firstName: '', lastName: '', username: '', password: '', formSubmitted: false })
                     toast.success(`${res.data} You can close this notification to be redirected to the home page.`, {

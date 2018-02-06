@@ -24,7 +24,7 @@ class RaffleEntryForm extends Component {
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
       // handle authenticating user info and incrementing ticket
-      handleRaffleEntry(username, password)
+      handleRaffleEntry(username.trim(), password)
         .then(res => {
           const successMsg = res.data
           toast.success(successMsg)
