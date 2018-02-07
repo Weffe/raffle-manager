@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import { ticketsRef } from '../utils/firebase'
-import { transformTicketsToList } from '../utils/utils'
+import { transformObjectToList } from '../utils/utils'
 
 const columnsConfig = [
   {
@@ -32,7 +32,7 @@ class Leaderboard extends Component {
   componentDidMount() {
     ticketsRef.on('value', snapshot => {
       const ticketsObject = snapshot.val()
-      const ticketsList = transformTicketsToList(ticketsObject)
+      const ticketsList = transformObjectToList(ticketsObject)
 
       this.setState({ data: ticketsList })
     })

@@ -18,7 +18,7 @@ class ForgotAccount extends Component {
       activeTab: '1'
     };
     this.togglePane = this.togglePane.bind(this)
-    this.renderNavbarPills = this.renderNavbarPills.bind(this)
+    this.renderNavbarTabs = this.renderNavbarTabs.bind(this)
   }
 
   togglePane(tab) {
@@ -29,7 +29,7 @@ class ForgotAccount extends Component {
     }
   }
 
-  renderNavbarPills() {
+  renderNavbarTabs() {
     const { activeTab } = this.state
 
     return (
@@ -81,7 +81,7 @@ class ForgotAccount extends Component {
             </p>
           </Jumbotron>
 
-          {this.renderNavbarPills()}
+          {this.renderNavbarTabs()}
 
           <TabContent activeTab={activeTab}>
             <TabPane tabId="1">

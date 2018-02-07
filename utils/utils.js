@@ -10,16 +10,20 @@ export const firebaseFuncions = axios.create({
     },
 })
 
-export function transformTicketsToList(tickets) {
+export function transformObjectToList(obj) {
     const list = [];
 
-    if (tickets) {
-        Object.entries(tickets).forEach(([key, val]) => {
+    if (obj) {
+        Object.entries(obj).forEach(([key, val]) => {
             list.push(val)
         });
     }
 
     return list
+}
+
+export function getRandomRaffleWinner() {
+    return firebaseFuncions.get('/getRandomRaffleWinner')
 }
 
 export function getUsersForDashboard() {
@@ -48,4 +52,8 @@ export function resetPassword(firstName, lastName, username, password) {
 
 export function resetUsername(firstName, lastName, username, password) {
     return firebaseFuncions.post('/resetUsername', { firstName, lastName, username, password })
+}
+
+export function confirmRaffleWinners(raffleWinnerIDs) {
+    return firebaseFuncions.post('/confirmRaffleWinners', { raffleWinnerIDs })
 }

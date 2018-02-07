@@ -4,7 +4,7 @@ import ReactTable from 'react-table'
 import { Button } from 'reactstrap'
 import { toast } from 'react-toastify'
 import CopyIcon from 'react-icons/lib/md/content-copy'
-import { transformTicketsToList, getUsersForDashboard } from '../utils/utils'
+import { getUsersForDashboard } from '../utils/utils'
 
 const CustomToastMessage = ({ _id, firstName, lastName }) => (
     <div>
