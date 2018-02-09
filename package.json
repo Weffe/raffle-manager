@@ -1,6 +1,6 @@
 {
   "name": "raffle-manager",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "A raffle management system that includes a user system and leaderboard.",
   "main": "index.js",
   "dependencies": {
@@ -26,7 +26,6 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
-    "@types/reactstrap": "^5.0.11",
     "babili-webpack-plugin": "^0.1.2",
     "redux-devtools-extension": "^2.13.2"
   },
