@@ -29,11 +29,6 @@ class DashboardManager extends Component {
       .then(res => {
         const { winners } = this.state
 
-        // confirm if response data selected a winner
-        if (res.data.firstName === undefined || res.data.lastName === undefined) {
-          throw new Error('There was no winner selected. This might be due to nobody having any raffle tickets.')
-        }
-
         winners.forEach(winner => {
           // check if the new winner already exists in our current list
           if (winner._id === res.data._id) {
