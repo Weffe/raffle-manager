@@ -3,6 +3,7 @@ import NavMenu from '../components/NavMenu'
 import Head from 'next/head'
 import { string } from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify';
+import NProgress from 'nprogress'
 
 class Layout extends PureComponent {
     static propTypes = {
@@ -11,6 +12,10 @@ class Layout extends PureComponent {
 
     static defaultProps = {
         pageTitle: 'Raffle Manager'
+    }
+
+    componentDidMount() {
+        NProgress.configure({ showSpinner: false });
     }
 
     render() {
@@ -40,8 +45,9 @@ class Layout extends PureComponent {
                     <meta name="msapplication-TileColor" content="#FFFFFF" />
                     <meta name="msapplication-TileImage" content="../static/favicons/favicon-144.png" />
                     <meta name="msapplication-config" content="../static/favicons/browserconfig.xml" />
-                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous" />
-                    <link rel="stylesheet" href="https://unpkg.com/react-table@latest/react-table.css" />
+                    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossOrigin="anonymous" />
+                    <link rel="stylesheet" href="//unpkg.com/react-table@latest/react-table.css" />
+                    <link rel="stylesheet" href="//unpkg.com/nprogress@0.2.0/nprogress.css" />
                     <link rel="stylesheet" href="../static/customstyles.css" />
                 </Head>
                 <NavMenu />

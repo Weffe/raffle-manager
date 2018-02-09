@@ -4,6 +4,7 @@ import InfoOutlineIcon from 'react-icons/lib/md/info-outline'
 import Link from 'next/link'
 import { handleRaffleEntry, firebaseFuncions } from '../../utils/utils'
 import { toast } from 'react-toastify';
+import NProgress from 'nprogress'
 
 class RaffleEntryForm extends Component {
   constructor() {
@@ -23,17 +24,20 @@ class RaffleEntryForm extends Component {
 
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+      NProgress.start()
       // handle authenticating user info and incrementing ticket
       handleRaffleEntry(username.trim(), password)
         .then(res => {
-          const successMsg = res.data
-          toast.success(successMsg)
+          toast.success(res.data)
           // clear the input fields if it validates
-          this.setState({ username: '', password: '', formSubmitted: false })
+          this.setState({ username: '', password: '' })
         })
         .catch(err => {
           toast.error(err.response.data)
+        })
+        .finally(() => {
           this.setState({ formSubmitted: false })
+          NProgress.done();
         })
     }
   }

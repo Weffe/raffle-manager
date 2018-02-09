@@ -103,7 +103,7 @@ class RaffleWinnersTable extends Component {
 
     confirmRaffleWinners(raffleWinnerIDs)
       .then(res => {
-        this.setState({ selection: [] })
+        this.setState({ selection: [], selectAll: false })
         this.props.clearRaffleWinners()
         toast.success(res.data)
       })

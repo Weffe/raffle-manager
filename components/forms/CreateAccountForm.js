@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import { handleRaffleEntry, createAccount } from '../../utils/utils'
 import { toast } from 'react-toastify'
+import NProgress from 'nprogress'
 
 class CreateAccountForm extends Component {
     constructor() {
@@ -24,15 +25,19 @@ class CreateAccountForm extends Component {
 
         if (!formSubmitted) {
             this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+            NProgress.start()
             createAccount(firstName.trim(), lastName.trim(), username.trim(), password)
                 .then(res => {
-                    this.setState({ firstName: '', lastName: '', username: '', password: '', formSubmitted: false })
+                    this.setState({ firstName: '', lastName: '', username: '', password: '' })
                     toast.success(`${res.data} You can close this notification to be redirected to the home page.`, {
                         onClose: () => { Router.push('/') }
                     })
                 })
                 .catch(err => {
                     toast.error(err.response.data)
+                })
+                .finally(() => {
+                    NProgress.done();
                     this.setState({ formSubmitted: false })
                 })
         }

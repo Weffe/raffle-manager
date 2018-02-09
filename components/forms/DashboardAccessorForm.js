@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import EyeSlashIcon from 'react-icons/lib/fa/eye-slash'
 import EyeIcon from 'react-icons/lib/fa/eye'
 import { handleDashboardLogin } from '../../utils/utils'
+import NProgress from 'nprogress'
 
 class DashboardAccessorForm extends Component {
   static propTypes = {
@@ -36,14 +37,18 @@ class DashboardAccessorForm extends Component {
 
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+      NProgress.start()
       handleDashboardLogin(username.trim(), password)
         .then(res => {
-          this.setState({ username: '', password: '', formSubmitted: false })
+          this.setState({ username: '', password: '' })
           this.props.onSubmitComplete(res.data)
         })
         .catch(err => {
           toast.error(err.response.data)
+        })
+        .finally(() => {
           this.setState({ formSubmitted: false })
+          NProgress.done();
         })
     }
   }

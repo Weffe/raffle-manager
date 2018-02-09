@@ -8,6 +8,7 @@ import { handleAdminLogin } from '../../utils/utils'
 import { toast } from 'react-toastify';
 import EyeSlashIcon from 'react-icons/lib/fa/eye-slash'
 import EyeIcon from 'react-icons/lib/fa/eye'
+import NProgress from 'nprogress'
 
 const mapDispatchToProps = dispatch => ({
   dispatchAdminLogin: bindActionCreators(login, dispatch)
@@ -38,10 +39,10 @@ class AdminLoginForm extends Component {
 
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
-
+      NProgress.start()
       handleAdminLogin(username.trim(), password)
         .then(res => {
-          this.setState({ username: '', password: '', formSubmitted: false })
+          this.setState({ username: '', password: '' })
           this.props.dispatchAdminLogin()
           toast.success(`${res.data} You can close this notification to be redirected to the home page.`, {
             onClose: () => { Router.push('/') }
@@ -49,6 +50,9 @@ class AdminLoginForm extends Component {
         })
         .catch(err => {
           toast.error(err.response.data)
+        })
+        .finally(() => {
+          NProgress.done();
           this.setState({ formSubmitted: false })
         })
     }

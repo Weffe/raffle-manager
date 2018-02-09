@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip } 
 import { resetPassword } from '../../../utils/utils'
 import { toast } from 'react-toastify';
 import Router from 'next/router'
+import NProgress from 'nprogress'
 
 class ResetPasswordForm extends Component {
   constructor() {
@@ -22,16 +23,20 @@ class ResetPasswordForm extends Component {
 
     if (!formSubmitted) {
       this.setState(prevState => ({ formSubmitted: !prevState.formSubmitted }))
+      NProgress.start()
       resetPassword(firstName.trim(), lastName.trim(), username.trim(), password)
         .then(res => {
-          this.setState({ firstName: '', lastName: '', username: '', password: '', formSubmitted: false })
+          this.setState({ firstName: '', lastName: '', username: '', password: '' })
           toast.success(`${res.data} You can close this notification to be redirected to the home page.`, {
             onClose: () => { Router.push('/') }
           })
         })
         .catch(err => {
           toast.error(err.response.data)
+        })
+        .finally(() => {
           this.setState({ formSubmitted: false })
+          NProgress.done();
         })
     }
   }
