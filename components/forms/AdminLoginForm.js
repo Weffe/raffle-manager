@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input, Row, Col, UncontrolledTooltip, InputGroupAddon, InputGroup } from 'reactstrap'
+import { Button, Form, FormGroup, Label, Input, Row, Col, InputGroupAddon, InputGroup } from 'reactstrap'
 import Router from 'next/router'
 import { bindActionCreators } from 'redux'
 import { login } from '../../store'

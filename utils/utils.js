@@ -57,3 +57,7 @@ export function resetUsername(firstName, lastName, username, password) {
 export function confirmRaffleWinners(raffleWinnerIDs) {
     return firebaseFuncions.post('/confirmRaffleWinners', { raffleWinnerIDs })
 }
+
+export function resetAllUserTickets() {
+    return firebaseFuncions.get('/resetAllUserTickets')
+}

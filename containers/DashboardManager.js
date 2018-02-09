@@ -6,6 +6,7 @@ import { getRandomRaffleWinner } from '../utils/utils'
 import { toast } from 'react-toastify'
 import capitalize from 'lodash.capitalize'
 import RaffleWinnerPortal from '../components/RaffleWinnerPortal'
+import AdditionalActions from '../components/AdditionalActions'
 
 class DashboardManager extends Component {
   constructor() {
@@ -27,6 +28,11 @@ class DashboardManager extends Component {
     getRandomRaffleWinner()
       .then(res => {
         const { winners } = this.state
+
+        // confirm if response data selected a winner
+        if (res.data.firstName === undefined || res.data.lastName === undefined) {
+          throw new Error('There was no winner selected. This might be due to nobody having any raffle tickets.')
+        }
 
         winners.forEach(winner => {
           // check if the new winner already exists in our current list
@@ -84,6 +90,15 @@ class DashboardManager extends Component {
             Users Table
           </NavLink>
         </NavItem>
+        <NavItem>
+          <NavLink
+            href="#"
+            active={activeTab === '3'}
+            onClick={() => { this.togglePane('3') }}
+          >
+            Additional Actions
+          </NavLink>
+        </NavItem>
       </Nav>
     )
   }
@@ -118,6 +133,11 @@ class DashboardManager extends Component {
               <TabPane tabId="2" className="pt-2">
                 <h2>Users Table</h2>
                 <DashboardUsersTable />
+              </TabPane>
+              <TabPane tabId="3" className="pt-2">
+                <h2>Additional Actions</h2>
+                <hr />
+                <AdditionalActions />
               </TabPane>
             </TabContent>
           </Col>
