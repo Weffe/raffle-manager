@@ -2,8 +2,11 @@ import React, { PureComponent } from 'react'
 import NavMenu from '../components/NavMenu'
 import Head from 'next/head'
 import { string } from 'prop-types'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify'
 import NProgress from 'nprogress'
+import promiseFinally from 'promise.prototype.finally'
+
+promiseFinally.shim();
 
 class Layout extends PureComponent {
     static propTypes = {
